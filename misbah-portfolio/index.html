@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en" x-data="app()" :class="{'dark':dark}" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="Misbah Kabir — ICS Student at Government Associate College for Women, Shakargarh.">
+<meta name="keywords" content="Misbah Kabir, ICS student, student portfolio, Shakargarh, computer science">
+<meta name="author" content="Misbah Kabir">
+
+<meta property="og:title" content="Misbah Kabir — ICS Student">
+<meta property="og:description" content="Student portfolio of Misbah Kabir, an ICS student at Government Associate College for Women, Shakargarh.">
+<meta property="og:type" content="website">
+
+<title>Misbah Kabir — ICS Student Portfolio</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: {
+        display: ['PT Sans','sans-serif'],
+        body: ['DM Sans','sans-serif']
+      },
+      colors: {
+        accent: '#FF6B2B',
+        'accent-light': '#FF8F5C'
+      }
+    }
+  }
+}
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html,body{font-family:'DM Sans',sans-serif}
+h1,h2,h3,h4,h5,h6{font-family:'PT Sans',sans-serif}
+body{transition:background-color .3s,color .3s}
+
+/* noise overlay */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E")}
+
+/* scrollbar */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#FF6B2B;border-radius:99px}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+/* nav underline animation */
+.nl{position:relative}
+.nl::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:currentColor;transition:width .22s cubic-bezier(.4,0,.2,1)}
+.nl:hover::after,.nl.on::after{width:100%}
+.nl.on{font-weight:500}
+
+/* shimmer button */
+.shimmer{position:relative;overflow:hidden}
+.shimmer::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:rgba(255,255,255,.18);transform:skewX(-20deg);transition:left .4s cubic-bezier(.4,0,.2,1)}
+.shimmer:hover::after{left:160%}
+
+/* photo frames */
+.pf{overflow:hidden;background:#d4d4d8}
+.pf img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* card hover */
+.card-h{transition:transform .28s cubic-bezier(.4,0,.2,1),border-color .18s}
+.card-h:hover{transform:translateY(-4px)}
+
+/* skill tag */
+.stag{transition:border-color .18s}
+
+[x-cloak]{display:none!important}
+</style>
+</head>
+
+<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased">
+
+<!-- ═══ NAV ═══ -->
+<header class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+  :class="sc?'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5':''">
+
+  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between" aria-label="Main navigation">
+
+    <a href="#hero" class="font-display font-bold text-xl tracking-tight relative z-10">
+      <span class="text-zinc-900 dark:text-white">mis</span><span class="text-accent">bah</span>
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8 text-sm" role="list">
+      <li>
+        <a href="#skills" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+          :class="s==='skills'?'on !text-zinc-900 dark:!text-white':''">
+          Skills
+        </a>
+      </li>
+
+      <li>
+        <a href="#work" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+          :class="s==='work'?'on !text-zinc-900 dark:!text-white':''">
+          Projects
+        </a>
+      </li>
+
+      <li>
+        <a href="#about" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+          :class="s==='about'?'on !text-zinc-900 dark:!text-white':''">
+          About
+        </a>
+      </li>
+
+      <li>
+        <a href="#contact" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+          :class="s==='contact'?'on !text-zinc-900 dark:!text-white':''">
+          Contact
+        </a>
+      </li>
+    </ul>
+
+    <div class="flex items-center gap-3">
+
+      <!-- dark toggle -->
+      <button @click="dark=!dark"
+        class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
+        :aria-label="dark?'Light mode':'Dark mode'">
+
+        <svg x-show="!dark" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+
+        <svg x-show="dark" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+        </svg>
+      </button>
+
+      <!-- contact -->
+      <a href="#contact"
+        class="hidden md:inline-flex items-center gap-2 shimmer bg-accent text-white text-sm font-medium px-5 py-2 rounded-full hover:bg-accent-light transition-colors">
+        Contact
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+
+      <!-- hamburger -->
+      <button @click="mm=!mm"
+        class="md:hidden w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800"
+        :aria-expanded="mm" aria-label="Toggle menu">
+
+        <svg x-show="!mm" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+
+        <svg x-show="mm" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- mobile menu -->
+  <div x-show="mm" x-cloak
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0 -translate-y-2"
+    x-transition:enter-end="opacity-100 translate-y-0"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100 translate-y-0"
+    x-transition:leave-end="opacity-0 -translate-y-2"
+    class="md:hidden bg-white dark:bg-zinc-950 border-t border-zinc-100 dark:border-zinc-900">
+
+    <ul class="flex flex-col px-6 py-5 gap-4 text-sm font-medium" role="list">
+
+      <li>
+        <a href="#skills" @click="mm=false"
+          class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">
+          Skills
+        </a>
+      </li>
+
+      <li>
+        <a href="#work" @click="mm=false"
+          class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">
+          Projects
+        </a>
+      </li>
+
+      <li>
+        <a href="#about" @click="mm=false"
+          class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">
+          About
+        </a>
+      </li>
+
+      <li>
+        <a href="#contact" @click="mm=false"
+          class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">
+          Contact
+        </a>
+      </li>
+
+      <li class="pt-2 border-t border-zinc-100 dark:border-zinc-900">
+        <a href="#contact" @click="mm=false"
+          class="inline-flex shimmer bg-accent text-white font-medium text-sm px-5 py-2.5 rounded-full">
+          Contact →
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</header>
+
+
+<main>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero" class="relative min-h-screen flex items-center pt-16 overflow-hidden">
+
+  <div class="absolute top-1/4 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute bottom-1/4 left-0 w-64 h-64 bg-zinc-200/50 dark:bg-zinc-800/30 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 w-full">
+
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+
+      <div>
+
+        <p class="reveal text-sm font-medium text-accent tracking-widest uppercase mb-4">
+          ICS Student
+        </p>
+
+        <h1 class="reveal d1 font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-zinc-900 dark:text-white mb-6">
+          Hi, I'm <span class="text-accent">Misbah</span>
+        </h1>
+
+        <p class="reveal d2 text-lg md:text-xl text-zinc-500 dark:text-zinc-400 font-light leading-relaxed max-w-md mb-10">
+          I'm <strong class="font-medium text-zinc-700 dark:text-zinc-300">Misbah Kabir</strong>,
+          a first-year ICS student at Government Associate College for Women, Shakargarh.
+          I'm interested in computer science, technology and learning new digital skills.
+        </p>
+
+        <div class="reveal d3 flex flex-wrap gap-4">
+
+          <a href="#work"
+            class="shimmer inline-flex items-center gap-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-medium px-7 py-3.5 rounded-full hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors text-sm">
+            View my projects
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 9l-7 7-7-7"/>
+            </svg>
+          </a>
+
+          <a href="#contact"
+            class="inline-flex items-center gap-2 border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-medium px-7 py-3.5 rounded-full hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-sm">
+            Get in touch
+          </a>
+
+        </div>
+
+        <div class="reveal d4 flex gap-8 mt-14 pt-8 border-t border-zinc-100 dark:border-zinc-900">
+
+          <div>
+            <p class="font-display font-bold text-3xl text-zinc-900 dark:text-white">ICS</p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">1st Year</p>
+          </div>
+
+          <div>
+            <p class="font-display font-bold text-3xl text-zinc-900 dark:text-white">CS</p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Field of Study</p>
+          </div>
+
+          <div>
+            <p class="font-display font-bold text-3xl text-zinc-900 dark:text-white">2026</p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Student Portfolio</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="reveal d2 flex justify-center md:justify-end">
+
+        <div class="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
+
+          <div class="pf w-full h-full rounded-3xl">
+            <img src="assets/img/misbah.jpg"
+              alt="Misbah Kabir — ICS Student"
+              loading="eager">
+          </div>
+
+          <div class="absolute -bottom-4 -left-4 bg-accent text-white font-display font-bold text-sm px-4 py-2.5 rounded-2xl shadow-lg">
+            ICS Student
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SKILLS ═══ -->
+<section id="skills" class="py-24 bg-zinc-50 dark:bg-zinc-900/40">
+
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="mb-14">
+
+      <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">
+        What I'm learning
+      </p>
+
+      <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white">
+        Skills &amp; Interests
+      </h2>
+
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <article class="reveal d1 card-h group bg-white dark:bg-zinc-900 rounded-2xl p-8 border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+
+        <div class="w-12 h-12 flex items-center justify-center bg-orange-50 dark:bg-zinc-800 rounded-xl mb-6 group-hover:bg-accent/10 transition-colors">
+
+          <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2"/>
+          </svg>
+
+        </div>
+
+        <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-3">
+          Computer Science
+        </h3>
+
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+          Learning the fundamentals of computer science through my ICS studies and practical exercises.
+        </p>
+
+      </article>
+
+
+      <article class="reveal d2 card-h group bg-zinc-900 dark:bg-zinc-800 rounded-2xl p-8 border border-zinc-800 hover:border-accent">
+
+        <div class="w-12 h-12 flex items-center justify-center bg-zinc-800 dark:bg-zinc-700 rounded-xl mb-6 group-hover:bg-accent/20 transition-colors">
+
+          <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+          </svg>
+
+        </div>
+
+        <h3 class="font-display font-bold text-xl text-white mb-3">
+          Programming
+        </h3>
+
+        <p class="text-sm text-zinc-400 leading-relaxed">
+          Developing programming and problem-solving skills through coding practice and academic projects.
+        </p>
+
+      </article>
+
+
+      <article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl p-8 border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+
+        <div class="w-12 h-12 flex items-center justify-center bg-orange-50 dark:bg-zinc-800 rounded-xl mb-6 group-hover:bg-accent/10 transition-colors">
+
+          <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 6v12m-6-6h12"/>
+          </svg>
+
+        </div>
+
+        <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-3">
+          Technology
+        </h3>
+
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+          Exploring web development, digital tools and modern technology while building new skills.
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══ PROJECTS ═══ -->
+<section id="work" class="py-24">
+
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
+
+      <div>
+
+        <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">
+          Student Portfolio
+        </p>
+
+        <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white">
+          My Projects
+        </h2>
+
+      </div>
+
+      <span class="reveal d1 text-sm text-zinc-500 dark:text-zinc-400">
+        Learning by building
+      </span>
+
+    </div>
+
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+
+      <!-- PROJECT 1 -->
+      <article class="card-h reveal d1 group rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent md:row-span-2">
+
+        <div class="pf w-full h-64 md:h-80">
+          <img src="assets/img/project-1.jpg"
+            alt="Student web project"
+            loading="lazy">
+        </div>
+
+        <div class="p-7">
+
+          <div class="flex flex-wrap gap-2 mb-4">
+
+            <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-3 py-1 rounded-full">
+              Web
+            </span>
+
+            <span class="text-xs bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">
+              HTML
+            </span>
+
+            <span class="text-xs bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">
+              CSS
+            </span>
+
+          </div>
+
+          <h3 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-2">
+            Personal Web Project
+          </h3>
+
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-5">
+            A simple website project created while learning web development and practicing HTML and CSS.
+          </p>
+
+          <span class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-900 dark:text-white">
+            Student Project
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- PROJECT 2 -->
+      <article class="card-h reveal d2 group rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+
+        <div class="pf w-full h-48">
+          <img src="assets/img/project-2.jpg"
+            alt="Programming project"
+            loading="lazy">
+        </div>
+
+        <div class="p-6">
+
+          <div class="flex flex-wrap gap-2 mb-3">
+
+            <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-3 py-1 rounded-full">
+              Programming
+            </span>
+
+            <span class="text-xs bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">
+              Coding
+            </span>
+
+          </div>
+
+          <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-1.5">
+            Programming Practice
+          </h3>
+
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+            Small programming exercises and academic tasks created to improve logical thinking and coding skills.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <!-- PROJECT 3 -->
+      <article class="card-h reveal d3 group rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+
+        <div class="pf w-full h-48">
+          <img src="assets/img/project-3.jpg"
+            alt="Computer science project"
+            loading="lazy">
+        </div>
+
+        <div class="p-6">
+
+          <div class="flex flex-wrap gap-2 mb-3">
+
+            <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-3 py-1 rounded-full">
+              Academic
+            </span>
+
+            <span class="text-xs bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">
+              ICS
+            </span>
+
+          </div>
+
+          <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-1.5">
+            Academic Work
+          </h3>
+
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+            Academic work and computer-related activities completed as part of the ICS learning journey.
+          </p>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about" class="py-24 bg-zinc-50 dark:bg-zinc-900/40">
+
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+
+      <div class="reveal order-2 md:order-1">
+
+        <div class="pf w-full aspect-square max-w-sm mx-auto rounded-3xl">
+
+          <img src="assets/img/misbah.jpg"
+            alt="Misbah Kabir"
+            loading="lazy">
+
+        </div>
+
+      </div>
+
+
+      <div class="order-1 md:order-2">
+
+        <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">
+          About me
+        </p>
+
+        <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-6">
+          A bit about<br>who I am
+        </h2>
+
+        <p class="reveal d2 text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
+          My name is Misbah Kabir. I am a first-year ICS student at
+          Government Associate College for Women, Shakargarh.
+          I am currently building my foundation in computer science and exploring
+          different areas of technology.
+        </p>
+
+        <p class="reveal d3 text-zinc-500 dark:text-zinc-400 leading-relaxed mb-8">
+          I enjoy learning new things, improving my computer skills and
+          working on small projects that help me understand technology through
+          practical experience.
+        </p>
+
+
+        <div class="reveal d4">
+
+          <p class="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-3">
+            Skills &amp; interests
+          </p>
+
+          <div class="flex flex-wrap gap-2" role="list" aria-label="Skills">
+
+            <span role="listitem"
+              class="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent">
+              HTML
+            </span>
+
+            <span role="listitem"
+              class="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent">
+              CSS
+            </span>
+
+            <span role="listitem"
+              class="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent">
+              Programming
+            </span>
+
+            <span role="listitem"
+              class="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent">
+              Computer Science
+            </span>
+
+            <span role="listitem"
+              class="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent">
+              Web Development
+            </span>
+
+            <span role="listitem"
+              class="stag text-sm bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3.5 py-1.5 rounded-full hover:border-accent">
+              Technology
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="py-24">
+
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="bg-zinc-900 dark:bg-zinc-800 rounded-3xl p-10 md:p-16 relative overflow-hidden">
+
+      <div class="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+      <div class="absolute bottom-0 left-0 w-40 h-40 bg-accent/10 rounded-full blur-2xl pointer-events-none" aria-hidden="true"></div>
+
+
+      <div class="relative z-10 grid md:grid-cols-2 gap-12 items-start">
+
+        <div>
+
+          <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">
+            Get in touch
+          </p>
+
+          <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-white leading-tight mb-5">
+            Let's<br>connect
+          </h2>
+
+          <p class="reveal d2 text-zinc-400 leading-relaxed mb-8">
+            If you would like to connect, discuss a student project,
+            share an opportunity or simply get in touch, feel free to send a message.
+          </p>
+
+          <div class="reveal d3 flex flex-col gap-4">
+
+            <!-- Replace with actual email -->
+            <a href="mailto:aliarslank1245@gmail.com"
+              class="group flex items-center gap-3 text-zinc-400 hover:text-white transition-colors">
+
+              <span class="w-9 h-9 flex items-center justify-center bg-zinc-800 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">
+
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+
+              </span>
+
+              <span class="text-sm">
+                aliarslank1245@gmail.com
+              </span>
+
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <div class="reveal d2">
+
+          <form action="#" method="POST" novalidate>
+
+            <div class="flex flex-col gap-4">
+
+              <div class="grid sm:grid-cols-2 gap-4">
+
+                <div>
+
+                  <label for="fname" class="block text-xs font-medium text-zinc-400 mb-1.5">
+                    Name <span aria-hidden="true">*</span>
+                  </label>
+
+                  <input type="text"
+                    id="fname"
+                    name="name"
+                    placeholder="Your name"
+                    required
+                    autocomplete="name"
+                    class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors">
+
+                </div>
+
+
+                <div>
+
+                  <label for="femail" class="block text-xs font-medium text-zinc-400 mb-1.5">
+                    Email <span aria-hidden="true">*</span>
+                  </label>
+
+                  <input type="email"
+                    id="femail"
+                    name="email"
+                    placeholder="your@email.com"
+                    required
+                    autocomplete="email"
+                    class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors">
+
+                </div>
+
+              </div>
+
+
+              <div>
+
+                <label for="fsubject" class="block text-xs font-medium text-zinc-400 mb-1.5">
+                  Subject
+                </label>
+
+                <input type="text"
+                  id="fsubject"
+                  name="subject"
+                  placeholder="Message subject"
+                  class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors">
+
+              </div>
+
+
+              <div>
+
+                <label for="fmessage" class="block text-xs font-medium text-zinc-400 mb-1.5">
+                  Message <span aria-hidden="true">*</span>
+                </label>
+
+                <textarea
+                  id="fmessage"
+                  name="message"
+                  rows="4"
+                  placeholder="Write your message..."
+                  required
+                  class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors resize-none"></textarea>
+
+              </div>
+
+
+              <button type="submit"
+                class="shimmer w-full bg-accent text-white font-display font-bold text-sm py-3.5 rounded-xl hover:bg-accent-light transition-colors">
+                Send message →
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="border-t border-zinc-100 dark:border-zinc-900">
+
+  <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+
+    <p class="text-sm text-zinc-400">
+      © <span id="yr"></span> Misbah Kabir.
+      <br>
+      Student Portfolio — Shakargarh
+    </p>
+
+    <p class="text-xs text-zinc-500">
+      First Year ICS Student
+    </p>
+
+  </div>
+
+</footer>
+
+
+<script>
+function app() {
+  return {
+    dark: false,
+    mm: false,
+    sc: false,
+    s: 'hero',
+
+    init() {
+
+      // dark mode
+      this.dark = localStorage.getItem('theme') === 'dark' ||
+        (!localStorage.getItem('theme') &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+      this.$watch('dark', v =>
+        localStorage.setItem('theme', v ? 'dark' : 'light')
+      );
+
+      // scroll
+      window.addEventListener('scroll', () => {
+        this.sc = window.scrollY > 20;
+        this.updateSection();
+      }, { passive: true });
+
+      // reveal
+      const io = new IntersectionObserver(entries => {
+
+        entries.forEach(e => {
+
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+
+        });
+
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      document.querySelectorAll('.reveal').forEach(el =>
+        io.observe(el)
+      );
+
+      // year
+      document.getElementById('yr').textContent =
+        new Date().getFullYear();
+    },
+
+
+    updateSection() {
+
+      const atBottom =
+        (window.innerHeight + window.scrollY) >=
+        document.body.scrollHeight - 60;
+
+      if (atBottom) {
+        this.s = 'contact';
+        return;
+      }
+
+      const ids = [
+        'contact',
+        'about',
+        'work',
+        'skills',
+        'hero'
+      ];
+
+      for (const id of ids) {
+
+        const el = document.getElementById(id);
+
+        if (el &&
+            window.scrollY >= el.offsetTop - 130) {
+
+          this.s = id;
+          return;
+
+        }
+
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>
+```
